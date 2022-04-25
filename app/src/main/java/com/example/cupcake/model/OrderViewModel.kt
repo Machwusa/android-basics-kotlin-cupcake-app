@@ -55,7 +55,7 @@ class OrderViewModel : ViewModel() {
     private val _price = MutableLiveData<Double>()
     val price: LiveData<String> = Transformations.map(_price) {
         // Format the price into the local currency and return this as LiveData<String>
-        NumberFormat.getCurrencyInstance().format(it)
+        NumberFormat.getCurrencyInstance(Locale("en", "ZA")).format(it)
     }
 
     init {
@@ -126,7 +126,7 @@ class OrderViewModel : ViewModel() {
      */
     private fun getPickupOptions(): List<String> {
         val options = mutableListOf<String>()
-        val formatter = SimpleDateFormat("E MMM d", Locale.getDefault())
+        val formatter = SimpleDateFormat("E d MMM", Locale.getDefault())
         val calendar = Calendar.getInstance()
         repeat(4) {
             options.add(formatter.format(calendar.time))
